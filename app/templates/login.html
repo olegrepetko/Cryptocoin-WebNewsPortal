@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <div class="single_page_content fix">
+
+        <div class="login-block login-full">
+            <form method="post" onsubmit="cryptopass();" action="/signin">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.login(class="form-control", placeholder="login") }}
+                    {% for error in form.errors.login %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}
+                </div>
+                <div class="form-group">
+                    {{ form.password(class="form-control", placeholder="password") }}
+                    {% for error in form.errors.password %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-default" id="login">Sign In</button>
+                <button type="submit" class="btn btn-default" id="register">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

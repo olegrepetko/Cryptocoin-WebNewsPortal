@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/font/font.css">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+    <link href="/css/responsive.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="/css/jqcloud.css">
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/js/jqcloud.js"></script>
+    <script src="/js/sha512.js"></script>
+{{ analytics }}
+</head>
+
+<body>
+
+
+<div class="fix header_area">
+    <div class="fix wrap header">
+        <div class="logo floatleft">
+            <img src="/images/templatemo_logo.png" id="logo" alt="Cryptocoiners logo">
+        </div>
+
+        <div class="manu floatright">
+            <ul id="nav-top">
+                <li><a href="/">Home</a></li>
+                <li><a href="/free_bitcoin">Free Bitcoin</a></li>
+                <li><a href="/contact_us">Contact us</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="fix content_area">
+
+    {% if not login_tmp %}
+        <div class="fix top_add_bar">
+            <div class="top_banner2 banner">
+                {{ get_banner(1)|safe }}
+            </div>
+            <div class="login-block">
+                <form method="post" onsubmit="cryptopass();" action="/signin">
+                    {{ login_form().hidden_tag() }}
+                    <div class="form-group">
+                        {{ login_form().login(class="form-control", placeholder="login") }}
+
+                    </div>
+                    <div class="form-group">
+                        {{ login_form().password(class="form-control", placeholder="password") }}
+                        {% for error in login_form().errors.password %}
+                            <span style="color: red;">[{{ error }}]</span><br>
+                        {% endfor %}
+                        {% for error in login_form().errors.login %}
+                            <span style="color: red;">[{{ error }}]</span><br>
+                        {% endfor %}
+                    </div>
+                    <button type="submit" class="btn btn-default" id="login">Sign In</button>
+                    <button type="submit" class="btn btn-default" id="register">Sign Up</button>
+                </form>
+            </div>
+
+        </div>
+    {% endif %}
+    <div class="manu_area">
+        <div class="mainmenu menu-wrap wrap">
+            <ul id="nav-bottom">
+                <li><a href="/">News</a></li>
+                <li><a href="/bitcoin_price">Price</a></li>
+                <li><a>Guides</a>
+                    <ul>
+                        <li><a href="/guides/start-using-bitcoin">How to start</a></li>
+                        <li><a href="/guides/tutorial-satoshi-nakamoto">Creator</a></li>
+                        <li><a href="/guides/buy-bitcoin">Buy Bitcoin</a></li>
+                        <li><a href="/guides/trade-bitcoin">Trade Bitcoin</a></li>
+                        <li><a href="/guides/ways-to-earn-bitcoins">Ways to earn bitcoin</a></li>
+                        <li><a href="/guides/bitcoin-whale">Bitcoin whale</a></li>
+                        <li><a href="/guides/cryptocurrency">Cruptocurrency</a></li>
+                    </ul>
+                </li>
+                <li><a href="/free_bitcoin">Free Bitcoin</a></li>
+                <li><a href="/guides/what-is-bitcoin">What is bitcoin</a></li>
+                <li><a>Lottery (soon...)</a></li>
+                <li><a>Services (soon...)</a></li>
+                <li><a href="/contact_us">Contact us</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="fix wrap content_wrapper">
+        <div class="fix content">
+            <div class="fix main_content floatleft">
+
+
+                {% block content %}{% endblock %}
+
+
+            </div>
+            <div class="fix sidebar floatright">
+
+                <div class="fix single_sidebar">
+                    <h2>Search</h2>
+                    <form method="get" name="search" action="/search">
+                        <input type="text" name="search"  class="form-control", style= "height:20px;", placeholder="Search and hit enter">
+                    </form>
+                </div>
+                <div class="fix single_sidebar">
+                    <div class="popular_post fix">
+                        <h2>Popular</h2>
+
+                        {% for el in get_random_news() %}
+
+                            <div class="fix single_popular">
+
+                                <a href="/news/{{ el.link }}"><img src="/images/{{ el.pic }}" class="floatleft"/></a>
+
+                                <a href="/news/{{ el.link }}"><h2>{{ el.title }}</h2></a>
+
+                                <p>{{ el.date }}</p>
+
+                            </div>
+                            <hr>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                {% if not login_tmp %}
+                    <div class="fix single_sidebar">
+                        <div class="popular_post fix banner">
+                            <h2>Banner</h2>
+
+                            {{ get_banner(4)|safe }}
+
+                        </div>
+                    </div>
+                    <div class="fix single_sidebar">
+                        <h2>Categories</h2>
+
+                        <div id="keywords"></div>
+                        <script>
+                            $('#keywords').jQCloud({{ get_tags()|tojson }}, {
+                                width: 300,
+                                height: 275
+                            });
+                        </script>
+
+                    </div>
+                    <div class="fix single_sidebar">
+                        <div class="popular_post fix">
+                            <h2>Banner</h2>
+
+                            <div class="banner">
+                                <center>{{ get_banner(5)|safe }}</center>
+                            </div>
+                            <h2></h2>
+
+                            <div class="banner">
+                                <center>{{ get_banner(6)|safe }}</center>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="fix bottom_add_bar">
+        <div class="addbar_leaderborard banner banner_bot2">{{ get_banner(7)|safe }}</div>
+    </div>
+
+</div>
+
+<!--Clean template by WpFreeware.com-->
+
+<div class="fix footer_top_area">
+    <div class="fix footer_top wrap">
+        <div class="fix footer_top_container">
+            <div class="fix single_footer floatleft">
+                <div class="banner">
+                    <center>{{ get_banner(8)|safe }}</center>
+                </div>
+            </div>
+            <div class="fix single_footer floatleft">
+                <h2>Usefull links</h2>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="https://blockchain.info/">Blockchain.info</a></li>
+                    <li><a href="https://bitcoin.org/">Official Bitcoin site</a></li>
+
+                </ul>
+            </div>
+
+
+            <div class="banner floatright banner_bot">
+                <center>{{ get_banner(9)|safe }}</center>
+            </div>
+            <div class="banner floatright banner_bot">
+                <center>{{ get_banner(10)|safe }}</center>
+            </div>
+            <div class="banner floatright banner_bot">
+                <center>{{ get_banner(11)|safe }}</center>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<div class="fix footer_area">
+    <div class="wrap">
+        <div class="fix copyright_text floatleft">
+            <p>Copyright © 2015 <a href="#">Cryptocoiners</a></p>
+        </div>
+        <div class="fix social_area floatright">
+            <ul>
+                <li><a href="" class="feed"></a></li>
+                <li><a href="" class="facebook"></a></li>
+                <li><a href="" class="twitter"></a></li>
+                <li><a href="" class="drible"></a></li>
+                <li><a href="" class="flickr"></a></li>
+                <li><a href="" class="pin"></a></li>
+                <li><a href="" class="tumblr"></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/placeholder_support_IE.js"></script>
+<script type="text/javascript" src="/js/selectnav.min.js"></script>
+<script type="text/javascript">
+    selectnav('nav-top', {
+        label: '-Navigation-',
+        nested: true,
+        indent: '-'
+    });
+
+    selectnav('nav-bottom', {
+        label: '-Navigation-',
+        nested: true,
+        indent: '-'
+    });
+</script>
+{{ get_banner(0)|safe }}
+</body>
+</html>

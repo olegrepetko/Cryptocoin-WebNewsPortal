@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="banner top_banner3">
+                    <center>{{ get_banner(2)|safe }}</center>
+                </div>
+    <div class="single_page_content fix">
+
+        <h1>{{ news.title }}</h1>
+
+        <div class="single_post_meta fix">
+            <p>{{ news.date }} |  {% for tag in news.category %}
+                <em><a href="/tags/{{ tag }}">{{ tag }}</a>,</em>
+            {% endfor %}
+                ...
+                |<strong> {{ news.comments|length }} Comments</strong></p>
+        </div>
+        {% if news.source != "http://www.coindesk.com/" %}          
+        <img src="/images/{{ news.pic }}" class="single_feature_img" alt=""/>
+        {% endif %}
+        {{ news.text|safe }}
+        <a href="{{ news.source|safe }}">Source</a>
+    </div>
+    <div class="banner top_banner3">
+                    <center>{{ get_banner(3)|safe }}</center>
+                    </div>
+    <div class="banner top_banner3">
+                    <center>{{ get_banner(12)|safe }}</center>
+                </div>
+{% endblock %}

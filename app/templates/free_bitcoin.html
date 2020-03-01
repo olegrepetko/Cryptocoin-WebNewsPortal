@@ -1,0 +1,98 @@
+{% extends "base_free.html" %}
+{% block content %}
+    <script type="text/javascript" src="/js/clock_assets/flipclock.js"></script>
+    <link rel="stylesheet" href="/js/clock_assets/flipclock.css">
+    <div class="free_page fix">
+        <div class="banner top_banner3">
+            <center>{{ get_banner(2)|safe }}</center>
+        </div>
+        <h4 class="text-center">FAUCETBOX</h4>
+        <hr>
+        <ul>
+            <li>Bitcoin micropayment cache</li>
+            <li>Claim every 1440 minutes</li>
+            <li>Win up to 12000 satoshi per claim</li>
+            <li>Immediate payment to Faucetbox</li>
+            <li>Average win = 1200 satoshi</li>
+            <li>Faucetbox account automatically created if you don't already have one</li>
+            <li>Enter your bitcoin address below to claim</li>
+            <li>More details: <a href="https://faucetbox.com" target="_blank">Faucetbox website</a></li>
+        </ul>
+        <h4 class="text-center">Faucet balance: {{ all_balance }} satoshi</h4>
+        {% if time_left %}
+            <div class="text-center" id="faucet-label">You have: {{reward}}</div>
+            <div class="text-center" id="faucet-label" align="center"><h3>Please wait: </h3>
+
+                <div class="clock-builder-output" align="center"></div>
+            </div>
+
+            <script type="text/javascript">
+                $(function () {
+                    FlipClock.Lang.Custom = {days: 'Days', hours: 'Hours', minutes: 'Minutes', seconds: 'Seconds'};
+                    var opts = {
+                        clockFace: 'HourCounter',
+                        countdown: true,
+                        language: 'Custom',
+                        callbacks: {
+                            stop: function () {
+                                location.reload();
+                            }
+                        }
+                    };
+                    opts.classes = {
+                        active: 'flip-clock-active',
+                        before: 'flip-clock-before',
+                        divider: 'flip-clock-divider',
+                        dot: 'flip-clock-dot',
+                        label: 'flip-clock-label',
+                        flip: 'flip',
+                        play: 'play',
+                        wrapper: 'flip-clock-small-wrapper'
+                    };
+                    var countdown = {{time_left}}; // from: 10/15/2015 12:43 pm +0300
+                    countdown = Math.max(1, countdown);
+                    $('.clock-builder-output').FlipClock(countdown, opts);
+                });
+            </script>
+        {% else %}
+            <form action="" method="POST" class="free-bitcoin-form">
+
+                <div class="text-center" id="faucet-label">Enter your Bitcoin address</div>
+                <div class="form-group" id="faucet-button">
+                    {{ form.hidden_tag() }}
+                    {{ form.wallet(placeholder="Bitcoin address", value=username,class="form-control input-lg") }}
+                    {{ recaptcha }}
+                    <input class="form-control btn-success" type="submit" name="try"
+                           value="Try your luck (100,200,600,12000!)"/>
+                    <input class="form-control btn-down" type="submit" name="collect"
+                           value="Collect 300 satoshi now"/>
+
+                </div>
+                <div class="text-center" id="faucet-label">
+                    <span>{{ info_text|safe }}</span><br>
+                    {% for error in form.errors.wallet %}
+                        <span style="color: red;">[{{ error }}]</span><br>
+                    {% endfor %}</div>
+            </form>
+        {% endif %}
+        <div class="text-center" id="faucet-label">
+            <span>{{ info_text|safe }}</span><br>
+        </div>
+
+        <div class="post_section">
+            <h3 class="text-center">Referral Program</h3>
+            Tell all your friends and family about Cryptocoiners - and receive a massive 50% lifetime commission on
+            their
+            earnings!!
+            You will see full details after making a faucet claim - including your unique referral link.
+            {{ ref_link|safe }}
+        </div>
+        <div class="banner top_banner3">
+            <center>{{ get_banner(3)|safe }}</center>
+        </div>
+        <div class="banner top_banner3">
+            <center>{{ get_banner(12)|safe }}</center>
+        </div>
+    </div>
+
+{% endblock %} 

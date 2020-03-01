@@ -1,0 +1,187 @@
+{% extends "base_guides.html" %}
+{% block content2 %}
+    <div class="single_page_content fix">
+        <p><strong><img
+                class="alignright  wp-image-31335"
+                src="https://www.cryptocoinsnews.com/wp-content/uploads/2014/07/how-a-bitcoin-transaction-works.jpg"
+                alt="how a bitcoin transaction works" width="360" height="236"/>This article explains what a <a
+                href="https://www.cryptocoinsnews.com/bitcoin/">Bitcoin</a> transaction is, its purpose and outcome. The
+            explanation made below is suitable for both novice and intermediate Bitcoin users.</strong></p>
+
+        <p>As a cryptocurrency user you need to be familiar with transaction rudiments - for the sake of your own
+            confidence with this evolving innovation, and as a foundation for understanding emerging <a
+                    href="https://www.cryptocoinsnews.com/tag/multisignature"><em>multi-signature</em></a> transactions
+            and <em>contracts</em>, both of which will be explored later in the series. This is not a technical article
+            and explanation will focus on what you need to know about <strong>standard bitcoin transactions</strong> -
+            the spend transactions we commonly make - and we'll gloss over what you can safely ignore.</p>
+
+        <p><em>An infographic at the <a href="#tx_infographic">bottom of the article</a> provides a comprehensive
+            illustration of the entire Bitcoin transaction process from wallet to blockchain.</em></p>
+
+        <p>Note: Even the Core developers acknowledge that some of the language being used to describe transactions and
+            their components can lead one to a mistaken concept of what is really happening. These misconceptions are
+            avoided in the explanation below. So, while trying to keep things as simple as possible, and with the aid of
+            a few diagrams, let's dive right in.</p>
+
+        <h3>Definition of Terms and Abbreviations</h3>
+
+        <p><strong>Bitcoin</strong> with a capital "B" refers to the protocol - the code, the nodes, the network and
+            their peer-to-peer interaction.<br/>
+            <strong>bitcoin</strong> with a lowercase 'b' refers to the currency - the cryptocurrency we send and
+            receive, via the Bitcoin network.<br/>
+            <strong>tx</strong> - wherever it is used in the text - is an abbreviation for '<a
+                    href="https://en.bitcoin.it/wiki/Transactions" target="_blank">Bitcoin transaction</a>'<br/>
+            <strong>txid</strong> is an abbreviation for 'transaction id' - this is a hash that is used by both humans
+            and the protocol to reference transactions.<br/>
+            <strong>Script</strong> is the name of the Bitcoin protocol's scripting system that processes and validates
+            transactions. Script is a clever, stack-based instruction engine, and it makes all transactions from simple
+            payments to complex oracle overseen contracts possible.<br/>
+            <strong>UTXO</strong> is an abbreviation for Unspent Transaction Output, also referred to as an
+            "output".<br/>
+            <strong>satoshi</strong> - 1 BTC = 100,000,000 satoshi</p>
+
+        <h2>What is a Bitcoin Transaction and Why?</h2>
+
+        <h3>Definition</h3>
+
+        <p>A Bitcoin transaction is a signed piece of data that is broadcast to the network and, if valid, ends up in a
+            block in the blockchain.</p>
+
+        <h3>Purpose</h3>
+
+        <p>The purpose of a Bitcoin transaction is to <em>transfer ownership</em> of an amount of Bitcoin to a Bitcoin
+            address.</p>
+
+        <h3>Outcome</h3>
+
+        <p>When you send Bitcoin, a single data structure, namely a Bitcoin transaction, is created by your wallet
+            client and then broadcast to the network. Bitcoin nodes on the network will relay and rebroadcast the
+            transaction, and if the transaction is valid, nodes will include it in the block they are mining. Usually,
+            within 10-20mins, the transaction will be included, along with other transactions, in a block in the
+            blockchain. At this point the receiver is able to see the transaction amount in their wallet.</p>
+
+        <h3>Example</h3>
+
+        <p>Here is an example transaction that was included in the blockchain earlier this year:<br/>
+            <img
+                    class="alignnone size-full wp-image-29531"
+                    src="https://www.cryptocoinsnews.com/wp-content/uploads/2014/07/Bitcoin_tx_example.png"
+                    alt="Bitcoin example transaction" width="1185" height="758"/></p>
+
+        <p>The main components of this standard transaction are color-coded:</p>
+        <ul>
+            <li><strong>Transaction ID</strong> <em>(highlighted in yellow)</em></li>
+            <li><strong>Descriptors and meta-data</strong> <em>(blue curly brace elaborated upon to the right)</em></li>
+            <li><strong>Inputs</strong> <em>(pink area)</em></li>
+            <li><strong>Outputs</strong> <em>(green area)</em></li>
+        </ul>
+        <h2>Bitcoin Transaction Inputs and Outputs</h2>
+
+        <p>Firstly, four axiomatic truths about transactions:</p>
+        <ul>
+            <li><em><em>Any Bitcoin amount that we send is always sent to an address.</em></em></li>
+            <li><em><em>Any Bitcoin amount we receive is locked to the receiving address - which is (usually) associated
+                with our wallet.</em></em></li>
+            <li><em><em>Any time we spend Bitcoin, the amount we spend will always come from funds previously received
+                and currently present in our wallet.</em></em></li>
+            <li><em><em>Addresses receive Bitcoin, but they do not send Bitcoin - Bitcoin is sent from a
+                wallet.</em></em></li>
+        </ul>
+        <p>The amounts that go into our wallet are not jumbled like the coins in a physical wallet. The <strong>received
+            amounts don't mix</strong> but remain separate and distinct as the exact amounts received by the wallet.
+            Here's an illustration:</p>
+
+        <h3>Example</h3>
+
+        <p>You create a brand new wallet and, in time, it receives three amounts of 0.01, 0.2 and 3 BTC as follows: you
+            send 3 BTC to an address associated with the wallet and two payments are made to another address by
+            Alice.<br/>
+            <img class="alignnone size-full wp-image-29556"
+                 src="https://www.cryptocoinsnews.com/wp-content/uploads/2014/07/Bitcoin_Transactions_Alice.png"
+                 alt="Bitcoin Transactions Send to Wallet" width="1499" height="1202"/><br/>
+            The wallet reports a balance of 3.21 BTC, yet if you were to virtually peek inside the wallet, you would see
+            - not 321,000,000 satoshi (321 mil satoshi) - but three distinct amounts still grouped together by their
+            originating transactions: 0.01, 0.2 and 3 BTC.<br/>
+            <img class="alignnone size-large wp-image-29526"
+                 src="https://www.cryptocoinsnews.com/wp-content/uploads/2014/07/Bitcoin_Transactions_wallet-1024x742.png"
+                 alt="Bitcoin_Transactions_wallet" width="750" height="543"/><br/>
+            The received bitcoin amounts don't mix but remain separated as the exact amounts sent to the wallet. The
+            three amounts in the example above are called the <strong>outputs</strong> of their originating
+            transactions.</p>
+
+        <p>Bitcoin wallets always keep outputs separate and distinct.</p>
+
+        <h3>Definition</h3>
+
+        <p>An <strong>output</strong> is an amount that was sent (via a standard transaction) to a Bitcoin address,
+            along with a set of rules to unlock the output amount. In Bitcoin parlance an output is called an <em>"unspent
+                transaction output"</em>, or <strong>UTXO</strong>.</p>
+
+        <p>A standard transaction output can be unlocked with the private key associated with the receiving address.
+            Addresses and their associated public/private key pairs will be covered later in the series. For now, we are
+            concerned with the output amount only.</p>
+
+        <h3>Example</h3>
+
+        <p>Let's consider an example by following the money in a scenario where you send 0.15 BTC to Bob.</p>
+
+        <p>As we have seen, your wallet does not select 15 mil satoshi (0.15 BTC) from an undifferentiated pool of 321
+            mil satoshi making up the wallet balance. Instead, the wallet selects a spend candidate from amongst the
+            three existing "outputs" contained in the wallet. So, it chooses (for various reasons that are not important
+            now) the 0.2 BTC output. The wallet will unlock the 0.2 BTC output and use the whole amount of 0.2 BTC as an
+            <strong>input</strong> to your new 0.15 BTC transaction. The 0.2 BTC output is "spent" in the process. -<em>Read
+                this paragraph a second time.</em></p>
+
+        <p><img class="alignnone size-full wp-image-29555"
+                src="https://www.cryptocoinsnews.com/wp-content/uploads/2014/07/Bitcoin_Transactions_Bob.png"
+                alt="Bitcoin Transactions to Bob" width="1436" height="940"/></p>
+
+        <p>The spend transaction your wallet creates will send 0.15 BTC to Bob's address - where it will reside in <em>his</em>
+            wallet as an output - waiting eventually to be spent.</p>
+
+        <p>The 0.05 BTC difference (0.2 BTC input minus 0.15 BTC output) is called <strong>"change"</strong> and the
+            transaction will send this back to your wallet via a newly created address. The 0.05 BTC change amount will
+            reside in your wallet as a new output - waiting eventually to be spent. So, now, a virtual peek inside your
+            wallet reveals the following:</p>
+
+        <p><img class="alignnone size-full wp-image-29553"
+                src="https://www.cryptocoinsnews.com/wp-content/uploads/2014/07/Bitcoin_Transactions_summary.png"
+                alt="Bitcoin Transactions Balance Change" width="1436" height="940"/></p>
+
+        <p>Each of the three outputs that are "waiting to be spent", is locked to its receiving addresses until such
+            time as one or more of them are selected as input(s) to a new spend transaction.</p>
+
+        <p>Behind the scenes, different wallet clients apply different logic rules when selecting UTXOs as inputs to new
+            transactions. A sane wallet policy is to use older UTXOs first, wherever possible, but implementations
+            differ. The manner in which UTXOs are selected is not of concern to us right now, since the objective has
+            been emphasis of the point that amounts received to our wallets remain separate and distinct.</p>
+
+        <h2>Summary of How a Bitcoin Transaction Works</h2>
+
+        <p>Various received amounts don't mix as they do in a physical wallet. Instead, received amounts (UTXOs) are
+            used individually (or in combination) at the moment we spend Bitcoin. When creating the spend transaction
+            our wallet selects UTXOs (of sufficient value to satisfy the amount we want to send) and typically creates
+            two new outputs: one for the receiver and one for the change we receive back to our wallet. The change
+            becomes a brand new UTXO in our wallet, and the amount we send becomes a UTXO locked to the recipient
+            address - which may or may not be associated with a wallet, e.g. cold storage. The original UTXO used as
+            input to the spend transaction is "spent" and destroyed forever.</p>
+
+        <p>This has been an introduction to how outputs (UTXOs) are handled by wallet software. Once a UTXO is selected
+            for expenditure, it requires the private key associated with the address that received it. This private key
+            redeems the UTXO and allows it to become an input in a new spend transaction. The mechanism whereby previous
+            transaction outputs are reused as the inputs to new transactions is central to the Bitcoin protocol's
+            function - and exactly as per Satoshi's design.</p>
+
+        <p><a name="tx_infographic"></a></p>
+
+        <div id="attachment_4200" style="width: 620px" class="wp-caption alignnone"><img
+                class="size-full wp-image-4200"
+                src="https://www.cryptocoinsnews.com/wp-content/uploads/2013/12/how-bitcoin-works.jpg"
+                alt="How Bitcoin Works Infographic" width="1871" height="1420"/>
+
+            <p class="wp-caption-text">How Bitcoin Works</p></div>
+        <p><em>Images by Shutterstock.</em></p>
+        <a href="https://www.cryptocoinsnews.com/">Source</a>
+    </div>
+
+{% endblock %}
